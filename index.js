@@ -4,30 +4,46 @@ const FEATURED_REPOS = [
     {
         name: "PlatearIGR",
         url: "https://github.com/gad0sneh/PlatearIGR",
-        description: "Revenue/tax automation platform (IGR) with dashboards and workflows.",
-        language: "Full-stack",
-        topics: ["Payments", "Dashboards", "Automation"]
+        description: "Revenue and tax automation platform for IGR teams with dashboards and compliance workflows.",
+        problem: "Manual revenue workflows caused delays and weak visibility.",
+        method: "Modeled data flows, built role-based dashboards, and automated reporting.",
+        technology: "React, Node, REST APIs",
+        result: "Faster reporting and clearer oversight for revenue teams.",
+        topics: ["Payments", "Dashboards", "Automation"],
+        language: "Full-stack"
     },
     {
         name: "SMS-Frontend",
         url: "https://github.com/gad0sneh/sms-frontend",
-        description: "School/Student Management System UI with responsive dashboards.",
-        language: "React",
-        topics: ["UI", "Students", "Dashboard"]
+        description: "Student Management System interface with responsive dashboards and role-based views.",
+        problem: "Schools needed a consistent, modern UI for staff and students.",
+        method: "Designed user flows, built reusable UI components, and optimized responsiveness.",
+        technology: "React, CSS, REST",
+        result: "Improved usability and faster navigation for daily school operations.",
+        topics: ["UI", "Students", "Dashboard"],
+        language: "React"
     },
     {
         name: "SMS-Backend",
         url: "https://github.com/gad0sneh/sms-backend",
-        description: "API + auth + data layer powering the SMS platform.",
-        language: "Node",
-        topics: ["API", "Auth", "PostgreSQL"]
+        description: "Secure API and data layer powering the Student Management System.",
+        problem: "Data entry, auth, and reporting needed a reliable backend.",
+        method: "Built REST endpoints, validation, and role-based access control.",
+        technology: "Node, Express, PostgreSQL",
+        result: "Stable API with cleaner data workflows and audit-ready records.",
+        topics: ["API", "Auth", "PostgreSQL"],
+        language: "Node"
     },
     {
         name: "Qorestack-Solution",
         url: "https://github.com/gad0sneh/qorestack-solution",
         description: "Business workflow solution with integrations and automation.",
-        language: "Full-stack",
-        topics: ["Integrations", "Automation", "Workflows"]
+        problem: "Manual approvals slowed down core operations.",
+        method: "Mapped workflows, integrated services, and automated approvals.",
+        technology: "Full-stack, APIs, Automation",
+        result: "Shorter turnaround time and clearer operational tracking.",
+        topics: ["Integrations", "Automation", "Workflows"],
+        language: "Full-stack"
     }
 ];
 
@@ -80,16 +96,32 @@ function matchesBigProject(name) {
     return PRIORITY_NAMES.includes(lower) || KEYWORDS.some(k => lower.includes(k));
 }
 
+function buildDetails(repo) {
+    return {
+        problem: repo.problem || "Focused on removing manual steps and improving clarity.",
+        method: repo.method || "Defined requirements, built features, and validated outcomes.",
+        technology: repo.technology || (repo.language ? repo.language : "Web stack"),
+        result: repo.result || "Delivered a reliable solution with better usability."
+    };
+}
+
 function renderRepos(list, labelText) {
     projectsGrid.innerHTML = list
         .map(repo => {
             const topics = repo.topics?.slice(0, 3) || [];
+            const details = buildDetails(repo);
             return `
             <article class="card">
                 <div class="card-top">
                     <p class="pill">${repo.language || 'Web'}</p>
                     <h4>${repo.name}</h4>
                     <p class="muted">${repo.description || 'No description added yet, just relentless building.'}</p>
+                    <ul class="project-details">
+                        <li><strong>Problem:</strong> ${details.problem}</li>
+                        <li><strong>Method:</strong> ${details.method}</li>
+                        <li><strong>Technology:</strong> ${details.technology}</li>
+                        <li><strong>Result:</strong> ${details.result}</li>
+                    </ul>
                 </div>
                 <div class="card-bottom">
                     ${topics.map(t => `<span class="pill">${t}</span>`).join('')}
@@ -125,6 +157,11 @@ async function fetchGitHubRepos() {
                 const scoreB = (b.stargazers_count || 0) + (b.forks_count || 0);
                 if (scoreB !== scoreA) return scoreB - scoreA;
                 return new Date(b.updated_at) - new Date(a.updated_at);
+            })
+            .map(repo => {
+                const key = repo.name.toLowerCase();
+                const match = FEATURED_REPOS.find(r => r.name.toLowerCase() === key);
+                return match ? { ...repo, ...match } : repo;
             });
 
         if (!bigRepos.length) {
