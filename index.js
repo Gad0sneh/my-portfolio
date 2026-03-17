@@ -6,20 +6,37 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/PlatearIGR",
         description: "Revenue and tax automation platform for IGR teams with dashboards and compliance workflows.",
         problem: "Manual revenue workflows caused delays and weak visibility.",
-        method: "Modeled data flows, built role-based dashboards, and automated reporting.",
+        architecture: "Role-based dashboards, API-first services, and audit-ready data flows.",
         technology: "React, Node, REST APIs",
+        depth: "RBAC, validation, audit trails, and structured reporting.",
+        impact: "Improved reporting speed and clearer operational oversight.",
         result: "Faster reporting and clearer oversight for revenue teams.",
         topics: ["Payments", "Dashboards", "Automation"],
         language: "Full-stack"
+    },
+    {
+        name: "PayZamfara-Frontend",
+        url: "https://github.com/gad0sneh/payzamfara-frontend",
+        description: "Payment-facing frontend for state revenue services with responsive user flows.",
+        problem: "Citizens needed a clear, trustworthy payment experience.",
+        architecture: "Component-driven UI with validation and transaction feedback states.",
+        technology: "React, CSS, REST",
+        depth: "Form validation, error recovery, and transaction state management.",
+        impact: "Reduced user errors and improved completion flow for payments.",
+        result: "Cleaner payment journeys and fewer failed submissions.",
+        topics: ["Payments", "Frontend", "UX"],
+        language: "React"
     },
     {
         name: "SMS-Frontend",
         url: "https://github.com/gad0sneh/sms-frontend",
         description: "Student Management System interface with responsive dashboards and role-based views.",
         problem: "Schools needed a consistent, modern UI for staff and students.",
-        method: "Designed user flows, built reusable UI components, and optimized responsiveness.",
+        architecture: "Reusable UI components and role-based navigation.",
         technology: "React, CSS, REST",
-        result: "Improved usability and faster navigation for daily school operations.",
+        depth: "Role-aware navigation, reusable layouts, and responsive dashboards.",
+        impact: "Improved usability and faster navigation for daily school operations.",
+        result: "Clearer, faster workflows for staff and students.",
         topics: ["UI", "Students", "Dashboard"],
         language: "React"
     },
@@ -28,27 +45,57 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/sms-backend",
         description: "Secure API and data layer powering the Student Management System.",
         problem: "Data entry, auth, and reporting needed a reliable backend.",
-        method: "Built REST endpoints, validation, and role-based access control.",
+        architecture: "REST services with validation, auth, and data integrity checks.",
         technology: "Node, Express, PostgreSQL",
-        result: "Stable API with cleaner data workflows and audit-ready records.",
+        depth: "Auth, validation, role-based access, and audit-friendly records.",
+        impact: "Stable API with cleaner data workflows and reporting confidence.",
+        result: "Reliable backend with structured data integrity.",
         topics: ["API", "Auth", "PostgreSQL"],
         language: "Node"
+    },
+    {
+        name: "Scholatify-360",
+        url: "https://github.com/gad0sneh/scholatify-360",
+        description: "Education management platform focused on student progress and analytics.",
+        problem: "Institutions lacked a unified view of student performance.",
+        architecture: "Dashboard-first UI with structured analytics views.",
+        technology: "React, Node, Charts",
+        depth: "Analytics views, reporting filters, and data summaries.",
+        impact: "Clearer visibility into performance and engagement.",
+        result: "Actionable views of student progress.",
+        topics: ["Education", "Analytics", "Dashboard"],
+        language: "Full-stack"
+    },
+    {
+        name: "Sundlash",
+        url: "https://github.com/gad0sneh/sundlash",
+        description: "Operations-focused web system for managing workflows and requests.",
+        problem: "Manual operations created delays and inconsistent tracking.",
+        architecture: "Workflow routing, role-based access, and status tracking.",
+        technology: "Full-stack, REST, Auth",
+        depth: "Workflow states, permissions, and activity tracking.",
+        impact: "Faster turnaround times and clearer operational logs.",
+        result: "More predictable operations and faster approvals.",
+        topics: ["Workflows", "Operations", "Automation"],
+        language: "Full-stack"
     },
     {
         name: "Qorestack-Solution",
         url: "https://github.com/gad0sneh/qorestack-solution",
         description: "Business workflow solution with integrations and automation.",
         problem: "Manual approvals slowed down core operations.",
-        method: "Mapped workflows, integrated services, and automated approvals.",
+        architecture: "Service integrations with automated approval routes.",
         technology: "Full-stack, APIs, Automation",
-        result: "Shorter turnaround time and clearer operational tracking.",
+        depth: "Integration workflows, routing rules, and audit visibility.",
+        impact: "Shorter turnaround time and clearer operational tracking.",
+        result: "Smoother approvals and better operational visibility.",
         topics: ["Integrations", "Automation", "Workflows"],
         language: "Full-stack"
     }
 ];
 
 const PRIORITY_NAMES = FEATURED_REPOS.map(r => r.name.toLowerCase());
-const KEYWORDS = ["platear", "igr", "sms", "qorestack"]; // only show big projects
+const KEYWORDS = ["platear", "igr", "sms", "qorestack", "payzamfara", "scholatify", "sundlash"];
 
 const projectsGrid = document.querySelector('[data-projects]');
 const projectsStatus = document.querySelector('[data-projects-status]');
@@ -88,7 +135,7 @@ function initTheme() {
 
 function priorityScore(name) {
     const idx = PRIORITY_NAMES.findIndex(p => p === name.toLowerCase());
-    return idx === -1 ? 1000 : idx; // lower is higher priority
+    return idx === -1 ? 1000 : idx;
 }
 
 function matchesBigProject(name) {
@@ -99,8 +146,10 @@ function matchesBigProject(name) {
 function buildDetails(repo) {
     return {
         problem: repo.problem || "Focused on removing manual steps and improving clarity.",
-        method: repo.method || "Defined requirements, built features, and validated outcomes.",
+        architecture: repo.architecture || "Modular services with clear responsibilities and data flow.",
         technology: repo.technology || (repo.language ? repo.language : "Web stack"),
+        depth: repo.depth || "Auth, validation, and reliable data handling.",
+        impact: repo.impact || "Improved usability and operational visibility.",
         result: repo.result || "Delivered a reliable solution with better usability."
     };
 }
@@ -110,6 +159,7 @@ function renderRepos(list, labelText) {
         .map(repo => {
             const topics = repo.topics?.slice(0, 3) || [];
             const details = buildDetails(repo);
+            const liveDemo = repo.homepage || repo.live_demo;
             return `
             <article class="card">
                 <div class="card-top">
@@ -118,8 +168,10 @@ function renderRepos(list, labelText) {
                     <p class="muted">${repo.description || 'No description added yet, just relentless building.'}</p>
                     <ul class="project-details">
                         <li><strong>Problem:</strong> ${details.problem}</li>
-                        <li><strong>Method:</strong> ${details.method}</li>
+                        <li><strong>Architecture:</strong> ${details.architecture}</li>
                         <li><strong>Technology:</strong> ${details.technology}</li>
+                        <li><strong>Technical depth:</strong> ${details.depth}</li>
+                        <li><strong>Impact:</strong> ${details.impact}</li>
                         <li><strong>Result:</strong> ${details.result}</li>
                     </ul>
                 </div>
@@ -127,7 +179,8 @@ function renderRepos(list, labelText) {
                     ${topics.map(t => `<span class="pill">${t}</span>`).join('')}
                     ${repo.stargazers_count !== undefined ? `<span class="pill">Stars: ${repo.stargazers_count}</span>` : ''}
                     ${repo.forks_count !== undefined ? `<span class="pill">Forks: ${repo.forks_count}</span>` : ''}
-                    <a class="text-link" href="${repo.html_url || repo.url}" target="_blank" rel="noreferrer">View on GitHub -></a>
+                    ${liveDemo ? `<a class="text-link" href="${liveDemo}" target="_blank" rel="noreferrer">Live Demo -></a>` : ''}
+                    <a class="text-link" href="${repo.html_url || repo.url}" target="_blank" rel="noreferrer">GitHub -></a>
                 </div>
             </article>`;
         })

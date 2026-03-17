@@ -585,3 +585,4 @@ a:hover {
 }
 
 .section-note {\n    margin-top: 12px;\n}\n\n.project-details {\n    list-style: none;\n    padding: 0;\n    margin: 12px 0 0;\n    display: grid;\n    gap: 6px;\n    color: var(--muted);\n    font-size: 0.9rem;\n}\n\n.project-details strong {\n    color: var(--text);\n}\n
+
