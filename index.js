@@ -2,6 +2,32 @@ const GITHUB_USERNAME = "gad0sneh"; // Update if your GitHub handle differs
 
 const FEATURED_REPOS = [
     {
+        name: "Real-Time-Chat",
+        url: "https://github.com/gad0sneh/realtime-chat",
+        description: "Live WebSocket chat with presence, history sync, and resilient reconnects.",
+        problem: "Teams need instant communication without refresh or delays.",
+        architecture: "WebSocket server with event-driven message flow and in-memory history.",
+        technology: "Node, Express, WebSockets",
+        depth: "Presence events, message fan-out, and reconnect handling.",
+        impact: "Instant collaboration and faster coordination.",
+        result: "Smooth, real-time messaging across connected clients.",
+        topics: ["WebSockets", "Real-time", "Chat"],
+        language: "Full-stack"
+    },
+    {
+        name: "Ops-Command-Center",
+        url: "https://github.com/gad0sneh/ops-command-center",
+        description: "Real-time operations dashboard with live incident flow and service health monitoring.",
+        problem: "Operational teams lacked a single live view of incidents and system health.",
+        architecture: "Event stream with live state snapshots and modular UI panels.",
+        technology: "Node, SSE, Vanilla JS",
+        depth: "Real-time streams, incident lifecycle state, and service health modeling.",
+        impact: "Faster incident visibility and clearer operational decisions.",
+        result: "Unified command center for live operational signals.",
+        topics: ["Real-time", "Operations", "Monitoring"],
+        language: "Full-stack"
+    },
+    {
         name: "PlatearIGR",
         url: "https://github.com/gad0sneh/PlatearIGR",
         description: "Revenue and tax automation platform for IGR teams with dashboards and compliance workflows.",
@@ -25,19 +51,6 @@ const FEATURED_REPOS = [
         impact: "Reduced user errors and improved completion flow for payments.",
         result: "Cleaner payment journeys and fewer failed submissions.",
         topics: ["Payments", "Frontend", "UX"],
-        language: "React"
-    },
-    {
-        name: "SMS-Frontend",
-        url: "https://github.com/gad0sneh/sms-frontend",
-        description: "Student Management System interface with responsive dashboards and role-based views.",
-        problem: "Schools needed a consistent, modern UI for staff and students.",
-        architecture: "Reusable UI components and role-based navigation.",
-        technology: "React, CSS, REST",
-        depth: "Role-aware navigation, reusable layouts, and responsive dashboards.",
-        impact: "Improved usability and faster navigation for daily school operations.",
-        result: "Clearer, faster workflows for staff and students.",
-        topics: ["UI", "Students", "Dashboard"],
         language: "React"
     },
     {
@@ -95,7 +108,7 @@ const FEATURED_REPOS = [
 ];
 
 const PRIORITY_NAMES = FEATURED_REPOS.map(r => r.name.toLowerCase());
-const KEYWORDS = ["platear", "igr", "sms", "qorestack", "payzamfara", "scholatify", "sundlash"];
+const KEYWORDS = ["platear", "igr", "sms", "qorestack", "payzamfara", "scholatify", "sundlash", "ops", "command", "monitoring", "incident", "chat", "realtime", "websocket"];
 
 const projectsGrid = document.querySelector('[data-projects]');
 const projectsStatus = document.querySelector('[data-projects-status]');
@@ -189,15 +202,25 @@ function renderRepos(list, labelText) {
     projectsStatus.textContent = labelText;
 }
 
+function fetchWithTimeout(resource, options = {}, timeoutMs = 6000) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    return fetch(resource, { ...options, signal: controller.signal })
+        .finally(() => clearTimeout(timeout));
+}
+
 async function fetchGitHubRepos() {
     if (!projectsGrid || !projectsStatus) return;
+
+    renderRepos(FEATURED_REPOS, 'Showing highlighted projects only (GitHub unavailable).');
     projectsStatus.textContent = 'Loading GitHub projects...';
+
     try {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`, {
-            headers: {
-                'Accept': 'application/vnd.github+json'
-            }
-        });
+        const response = await fetchWithTimeout(
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`,
+            { headers: { 'Accept': 'application/vnd.github+json' } },
+            7000
+        );
         if (!response.ok) throw new Error('GitHub request failed');
         const repos = await response.json();
         const bigRepos = repos
@@ -218,14 +241,13 @@ async function fetchGitHubRepos() {
             });
 
         if (!bigRepos.length) {
-            renderRepos(FEATURED_REPOS, 'Showing highlighted projects only.');
+            projectsStatus.textContent = 'Showing highlighted projects only.';
             return;
         }
 
         renderRepos(bigRepos, `Showing ${bigRepos.length} highlighted projects.`);
     } catch (error) {
-        console.error(error);
-        renderRepos(FEATURED_REPOS, 'Showing highlighted projects only.');
+        projectsStatus.textContent = 'Showing highlighted projects only (GitHub unavailable).';
     }
 }
 
