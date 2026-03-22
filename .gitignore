@@ -1,0 +1,18 @@
+# Local tooling artifacts
+.shotter/
+.npm-cache/
+.chrome-profile/
+.chrome-crash/
+.edge-profile/
+.edge-crash/
+
+# Nested repos (handled separately)
+SMS_Frontend/
+Sulandsah/
+binarify-NGO/
+communi-watch/
+ops-command-center/
+plateauIGR/
+realtime-chat/
+scholastify/
+scholastify360/
