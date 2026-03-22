@@ -6,10 +6,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/realtime-chat",
         description: "Live WebSocket chat with presence, history sync, and resilient reconnects.",
         problem: "Teams need instant communication without refresh or delays.",
-        architecture: "WebSocket server with event-driven message flow and in-memory history.",
+        solution: "Built a WebSocket-based chat with presence signals and history sync.",
+        architecture: "Event-driven WebSocket server with in-memory history.",
         technology: "Node, Express, WebSockets",
-        depth: "Presence events, message fan-out, and reconnect handling.",
-        impact: "Instant collaboration and faster coordination.",
+        role: "Full-stack development, realtime architecture, UI implementation.",
         result: "Smooth, real-time messaging across connected clients.",
         topics: ["WebSockets", "Real-time", "Chat"],
         language: "Full-stack"
@@ -19,10 +19,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/ops-command-center",
         description: "Real-time operations dashboard with live incident flow and service health monitoring.",
         problem: "Operational teams lacked a single live view of incidents and system health.",
+        solution: "Built a command center that streams metrics, incidents, and service status.",
         architecture: "Event stream with live state snapshots and modular UI panels.",
         technology: "Node, SSE, Vanilla JS",
-        depth: "Real-time streams, incident lifecycle state, and service health modeling.",
-        impact: "Faster incident visibility and clearer operational decisions.",
+        role: "Backend streaming, dashboard UI, system modeling.",
         result: "Unified command center for live operational signals.",
         topics: ["Real-time", "Operations", "Monitoring"],
         language: "Full-stack"
@@ -32,10 +32,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/PlatearIGR",
         description: "Revenue and tax automation platform for IGR teams with dashboards and compliance workflows.",
         problem: "Manual revenue workflows caused delays and weak visibility.",
-        architecture: "Role-based dashboards, API-first services, and audit-ready data flows.",
+        solution: "Delivered role-based dashboards and automated reporting workflows.",
+        architecture: "API-first services with audit-ready data flows.",
         technology: "React, Node, REST APIs",
-        depth: "RBAC, validation, audit trails, and structured reporting.",
-        impact: "Improved reporting speed and clearer operational oversight.",
+        role: "System design, frontend dashboards, API integration.",
         result: "Faster reporting and clearer oversight for revenue teams.",
         topics: ["Payments", "Dashboards", "Automation"],
         language: "Full-stack"
@@ -45,10 +45,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/payzamfara-frontend",
         description: "Payment-facing frontend for state revenue services with responsive user flows.",
         problem: "Citizens needed a clear, trustworthy payment experience.",
-        architecture: "Component-driven UI with validation and transaction feedback states.",
+        solution: "Built a validation-first UI with transaction feedback and error recovery.",
+        architecture: "Component-driven UI with stateful flows.",
         technology: "React, CSS, REST",
-        depth: "Form validation, error recovery, and transaction state management.",
-        impact: "Reduced user errors and improved completion flow for payments.",
+        role: "Frontend implementation, UX flows, state handling.",
         result: "Cleaner payment journeys and fewer failed submissions.",
         topics: ["Payments", "Frontend", "UX"],
         language: "React"
@@ -58,10 +58,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/sms-backend",
         description: "Secure API and data layer powering the Student Management System.",
         problem: "Data entry, auth, and reporting needed a reliable backend.",
-        architecture: "REST services with validation, auth, and data integrity checks.",
+        solution: "Implemented REST services with validation, auth, and reporting endpoints.",
+        architecture: "Role-based access with structured data integrity checks.",
         technology: "Node, Express, PostgreSQL",
-        depth: "Auth, validation, role-based access, and audit-friendly records.",
-        impact: "Stable API with cleaner data workflows and reporting confidence.",
+        role: "Backend APIs, auth, data modeling.",
         result: "Reliable backend with structured data integrity.",
         topics: ["API", "Auth", "PostgreSQL"],
         language: "Node"
@@ -71,10 +71,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/scholatify-360",
         description: "Education management platform focused on student progress and analytics.",
         problem: "Institutions lacked a unified view of student performance.",
+        solution: "Built analytics-first dashboards to consolidate student insights.",
         architecture: "Dashboard-first UI with structured analytics views.",
         technology: "React, Node, Charts",
-        depth: "Analytics views, reporting filters, and data summaries.",
-        impact: "Clearer visibility into performance and engagement.",
+        role: "Full-stack delivery, analytics UI, reporting views.",
         result: "Actionable views of student progress.",
         topics: ["Education", "Analytics", "Dashboard"],
         language: "Full-stack"
@@ -84,10 +84,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/sundlash",
         description: "Operations-focused web system for managing workflows and requests.",
         problem: "Manual operations created delays and inconsistent tracking.",
+        solution: "Delivered a structured workflow system with clear status states.",
         architecture: "Workflow routing, role-based access, and status tracking.",
         technology: "Full-stack, REST, Auth",
-        depth: "Workflow states, permissions, and activity tracking.",
-        impact: "Faster turnaround times and clearer operational logs.",
+        role: "Workflow design, UI, and integration.",
         result: "More predictable operations and faster approvals.",
         topics: ["Workflows", "Operations", "Automation"],
         language: "Full-stack"
@@ -97,10 +97,10 @@ const FEATURED_REPOS = [
         url: "https://github.com/gad0sneh/qorestack-solution",
         description: "Business workflow solution with integrations and automation.",
         problem: "Manual approvals slowed down core operations.",
-        architecture: "Service integrations with automated approval routes.",
+        solution: "Integrated services with automated approval routes.",
+        architecture: "Service integrations with routing rules and audit visibility.",
         technology: "Full-stack, APIs, Automation",
-        depth: "Integration workflows, routing rules, and audit visibility.",
-        impact: "Shorter turnaround time and clearer operational tracking.",
+        role: "Integration design, workflow automation, UI delivery.",
         result: "Smoother approvals and better operational visibility.",
         topics: ["Integrations", "Automation", "Workflows"],
         language: "Full-stack"
@@ -159,11 +159,10 @@ function matchesBigProject(name) {
 function buildDetails(repo) {
     return {
         problem: repo.problem || "Focused on removing manual steps and improving clarity.",
-        architecture: repo.architecture || "Modular services with clear responsibilities and data flow.",
+        solution: repo.solution || "Built a focused system that removes friction and improves speed.",
         technology: repo.technology || (repo.language ? repo.language : "Web stack"),
-        depth: repo.depth || "Auth, validation, and reliable data handling.",
-        impact: repo.impact || "Improved usability and operational visibility.",
-        result: repo.result || "Delivered a reliable solution with better usability."
+        role: repo.role || "Full-stack delivery and system integration.",
+        result: repo.result || "Delivered a reliable solution with measurable improvements."
     };
 }
 
@@ -181,18 +180,15 @@ function renderRepos(list, labelText) {
                     <p class="muted">${repo.description || 'No description added yet, just relentless building.'}</p>
                     <ul class="project-details">
                         <li><strong>Problem:</strong> ${details.problem}</li>
-                        <li><strong>Architecture:</strong> ${details.architecture}</li>
-                        <li><strong>Technology:</strong> ${details.technology}</li>
-                        <li><strong>Technical depth:</strong> ${details.depth}</li>
-                        <li><strong>Impact:</strong> ${details.impact}</li>
+                        <li><strong>Solution:</strong> ${details.solution}</li>
+                        <li><strong>Tech stack:</strong> ${details.technology}</li>
+                        <li><strong>Role:</strong> ${details.role}</li>
                         <li><strong>Result:</strong> ${details.result}</li>
                     </ul>
                 </div>
                 <div class="card-bottom">
                     ${topics.map(t => `<span class="pill">${t}</span>`).join('')}
-                    ${repo.stargazers_count !== undefined ? `<span class="pill">Stars: ${repo.stargazers_count}</span>` : ''}
-                    ${repo.forks_count !== undefined ? `<span class="pill">Forks: ${repo.forks_count}</span>` : ''}
-                    ${liveDemo ? `<a class="text-link" href="${liveDemo}" target="_blank" rel="noreferrer">Live Demo -></a>` : ''}
+                    ${liveDemo ? `<a class="text-link" href="${liveDemo}" target="_blank" rel="noreferrer">Live -></a>` : '<span class="text-link is-disabled">Live (coming soon)</span>'}
                     <a class="text-link" href="${repo.html_url || repo.url}" target="_blank" rel="noreferrer">GitHub -></a>
                 </div>
             </article>`;
