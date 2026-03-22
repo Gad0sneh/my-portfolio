@@ -7,9 +7,11 @@ const FEATURED_REPOS = [
         description: "Live WebSocket chat with presence, history sync, and resilient reconnects.",
         problem: "Teams need instant communication without refresh or delays.",
         solution: "Built a WebSocket-based chat with presence signals and history sync.",
-        architecture: "Event-driven WebSocket server with in-memory history.",
         technology: "Node, Express, WebSockets",
         role: "Full-stack development, realtime architecture, UI implementation.",
+        challenge: "Maintain consistent state during reconnects and high message volume.",
+        decision: "Used event-driven WebSocket flow with in-memory history for fast sync.",
+        impact: "Instant collaboration and faster coordination.",
         result: "Smooth, real-time messaging across connected clients.",
         topics: ["WebSockets", "Real-time", "Chat"],
         language: "Full-stack"
@@ -20,9 +22,11 @@ const FEATURED_REPOS = [
         description: "Real-time operations dashboard with live incident flow and service health monitoring.",
         problem: "Operational teams lacked a single live view of incidents and system health.",
         solution: "Built a command center that streams metrics, incidents, and service status.",
-        architecture: "Event stream with live state snapshots and modular UI panels.",
         technology: "Node, SSE, Vanilla JS",
         role: "Backend streaming, dashboard UI, system modeling.",
+        challenge: "Deliver live updates without polling overhead.",
+        decision: "Used SSE for push-based updates and modular UI panels.",
+        impact: "Faster incident visibility and clearer operational decisions.",
         result: "Unified command center for live operational signals.",
         topics: ["Real-time", "Operations", "Monitoring"],
         language: "Full-stack"
@@ -33,9 +37,11 @@ const FEATURED_REPOS = [
         description: "Revenue and tax automation platform for IGR teams with dashboards and compliance workflows.",
         problem: "Manual revenue workflows caused delays and weak visibility.",
         solution: "Delivered role-based dashboards and automated reporting workflows.",
-        architecture: "API-first services with audit-ready data flows.",
         technology: "React, Node, REST APIs",
         role: "System design, frontend dashboards, API integration.",
+        challenge: "Ensure data integrity and audit-ready reporting.",
+        decision: "Implemented validation layers and structured reporting flows.",
+        impact: "Improved reporting speed and clearer operational oversight.",
         result: "Faster reporting and clearer oversight for revenue teams.",
         topics: ["Payments", "Dashboards", "Automation"],
         language: "Full-stack"
@@ -46,9 +52,11 @@ const FEATURED_REPOS = [
         description: "Payment-facing frontend for state revenue services with responsive user flows.",
         problem: "Citizens needed a clear, trustworthy payment experience.",
         solution: "Built a validation-first UI with transaction feedback and error recovery.",
-        architecture: "Component-driven UI with stateful flows.",
         technology: "React, CSS, REST",
         role: "Frontend implementation, UX flows, state handling.",
+        challenge: "Reduce failed submissions and user confusion.",
+        decision: "Designed guided flows with strong validation and feedback states.",
+        impact: "Reduced user errors and improved completion flow for payments.",
         result: "Cleaner payment journeys and fewer failed submissions.",
         topics: ["Payments", "Frontend", "UX"],
         language: "React"
@@ -59,9 +67,11 @@ const FEATURED_REPOS = [
         description: "Secure API and data layer powering the Student Management System.",
         problem: "Data entry, auth, and reporting needed a reliable backend.",
         solution: "Implemented REST services with validation, auth, and reporting endpoints.",
-        architecture: "Role-based access with structured data integrity checks.",
         technology: "Node, Express, PostgreSQL",
         role: "Backend APIs, auth, data modeling.",
+        challenge: "Ensure stable data handling and consistent reporting.",
+        decision: "Structured schemas with role-based access and validation.",
+        impact: "Stable API with cleaner data workflows and reporting confidence.",
         result: "Reliable backend with structured data integrity.",
         topics: ["API", "Auth", "PostgreSQL"],
         language: "Node"
@@ -72,10 +82,12 @@ const FEATURED_REPOS = [
         description: "Education management platform focused on student progress and analytics.",
         problem: "Institutions lacked a unified view of student performance.",
         solution: "Built analytics-first dashboards to consolidate student insights.",
-        architecture: "Dashboard-first UI with structured analytics views.",
         technology: "React, Node, Charts",
         role: "Full-stack delivery, analytics UI, reporting views.",
-        result: "Actionable views of student progress.",
+        challenge: "Normalize performance data into actionable signals.",
+        decision: "Designed dashboard-first reporting views with clear filters.",
+        impact: "Actionable visibility into performance and engagement.",
+        result: "Clearer views of student progress.",
         topics: ["Education", "Analytics", "Dashboard"],
         language: "Full-stack"
     },
@@ -85,9 +97,11 @@ const FEATURED_REPOS = [
         description: "Operations-focused web system for managing workflows and requests.",
         problem: "Manual operations created delays and inconsistent tracking.",
         solution: "Delivered a structured workflow system with clear status states.",
-        architecture: "Workflow routing, role-based access, and status tracking.",
         technology: "Full-stack, REST, Auth",
         role: "Workflow design, UI, and integration.",
+        challenge: "Make status changes visible and accountable.",
+        decision: "Added workflow states and activity tracking by role.",
+        impact: "Faster turnaround times and clearer operational logs.",
         result: "More predictable operations and faster approvals.",
         topics: ["Workflows", "Operations", "Automation"],
         language: "Full-stack"
@@ -98,9 +112,11 @@ const FEATURED_REPOS = [
         description: "Business workflow solution with integrations and automation.",
         problem: "Manual approvals slowed down core operations.",
         solution: "Integrated services with automated approval routes.",
-        architecture: "Service integrations with routing rules and audit visibility.",
         technology: "Full-stack, APIs, Automation",
         role: "Integration design, workflow automation, UI delivery.",
+        challenge: "Coordinate multiple systems while keeping audit visibility.",
+        decision: "Used routing rules and integration checkpoints.",
+        impact: "Shorter turnaround time and clearer operational tracking.",
         result: "Smoother approvals and better operational visibility.",
         topics: ["Integrations", "Automation", "Workflows"],
         language: "Full-stack"
@@ -162,6 +178,9 @@ function buildDetails(repo) {
         solution: repo.solution || "Built a focused system that removes friction and improves speed.",
         technology: repo.technology || (repo.language ? repo.language : "Web stack"),
         role: repo.role || "Full-stack delivery and system integration.",
+        challenge: repo.challenge || "Balance speed, clarity, and reliability under real usage.",
+        decision: repo.decision || "Chose architecture that favors maintainability and auditability.",
+        impact: repo.impact || "Improved visibility and operational confidence.",
         result: repo.result || "Delivered a reliable solution with measurable improvements."
     };
 }
@@ -183,6 +202,9 @@ function renderRepos(list, labelText) {
                         <li><strong>Solution:</strong> ${details.solution}</li>
                         <li><strong>Tech stack:</strong> ${details.technology}</li>
                         <li><strong>Role:</strong> ${details.role}</li>
+                        <li><strong>Challenge:</strong> ${details.challenge}</li>
+                        <li><strong>Decision:</strong> ${details.decision}</li>
+                        <li><strong>Impact:</strong> ${details.impact}</li>
                         <li><strong>Result:</strong> ${details.result}</li>
                     </ul>
                 </div>
