@@ -236,6 +236,13 @@ a:hover {
     letter-spacing: 0.02em;
 }
 
+.hero__copy .personal {
+    margin: 0 0 18px;
+    color: var(--text);
+    line-height: 1.6;
+    font-weight: 500;
+}
+
 .cta-row {
     display: flex;
     gap: 12px;
